@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.DS_Store
+.git
+.gitignore
+logs/
+data/
+node_modules/
+.dockerignore

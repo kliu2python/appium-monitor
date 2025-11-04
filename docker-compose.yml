@@ -1,0 +1,101 @@
+version: "3.9"
+
+x-monitor-env: &monitor-env
+  MONITOR_LOG_DIR: /data/logs
+  MONITOR_MAPPING_FILE: /data/mapping.json
+  PORT_STRIDE: 100
+
+x-monitor-base: &monitor-base
+  build:
+    context: .
+  privileged: true
+  network_mode: host
+  restart: unless-stopped
+  environment:
+    <<: *monitor-env
+  volumes:
+    - /dev/bus/usb:/dev/bus/usb
+  tmpfs:
+    - /tmp
+
+services:
+  monitor1:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 0
+    volumes:
+      - ./data/monitor1:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor2:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 100
+    volumes:
+      - ./data/monitor2:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor3:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 200
+    volumes:
+      - ./data/monitor3:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor4:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 300
+    volumes:
+      - ./data/monitor4:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor5:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 400
+    volumes:
+      - ./data/monitor5:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor6:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 500
+    volumes:
+      - ./data/monitor6:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor7:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 600
+    volumes:
+      - ./data/monitor7:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor8:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 700
+    volumes:
+      - ./data/monitor8:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor9:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 800
+    volumes:
+      - ./data/monitor9:/data
+      - /dev/bus/usb:/dev/bus/usb
+  monitor10:
+    <<: *monitor-base
+    environment:
+      <<: *monitor-env
+      PORT_OFFSET: 900
+    volumes:
+      - ./data/monitor10:/data
+      - /dev/bus/usb:/dev/bus/usb
