@@ -1,0 +1,54 @@
+{
+  "00008030-0018145A1A63402E": {
+    "appiumPort": 4733,
+    "mjpgPort": 9103,
+    "type": "ios",
+    "wdaPort": 8103
+  },
+  "00008101-00040DEE34B9001E": {
+    "appiumPort": 4732,
+    "mjpgPort": 9102,
+    "type": "ios",
+    "wdaPort": 8102
+  },
+  "05bf6eed0a0744d8d2acf2cc7164b3dac9288aba": {
+    "appiumPort": 4731,
+    "mjpgPort": 9101,
+    "type": "ios",
+    "wdaPort": 8101
+  },
+  "2C031JEGR00238": {
+    "appiumPort": 4723,
+    "type": "android"
+  },
+  "562d945a": {
+    "appiumPort": 4724,
+    "type": "android"
+  },
+  "8BEX18XP6": {
+    "appiumPort": 4725,
+    "type": "android"
+  },
+  "9e9e3fa1": {
+    "appiumPort": 4726,
+    "type": "android"
+  },
+  "R5CT44LW5LX": {
+    "appiumPort": 4727,
+    "type": "android"
+  },
+  "RFCN80T4GDJ": {
+    "appiumPort": 4728,
+    "type": "android"
+  },
+  "f67d7ce40691d9ab546d7362a4cc7a6182870de2": {
+    "appiumPort": 4730,
+    "mjpgPort": 9100,
+    "type": "ios",
+    "wdaPort": 8100
+  },
+  "localhost:5555": {
+    "appiumPort": 4729,
+    "type": "android"
+  }
+}
