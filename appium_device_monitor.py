@@ -42,8 +42,10 @@ from urllib.request import urlopen
 from urllib.error import URLError
 
 HERE = Path(__file__).resolve().parent
-LOG_DIR = HERE / "logs"
-MAP_FILE = HERE / "mapping.json"
+DEFAULT_LOG_DIR = Path(os.environ.get("MONITOR_LOG_DIR", str(HERE / "logs")))
+DEFAULT_MAP_FILE = Path(os.environ.get("MONITOR_MAPPING_FILE", str(HERE / "mapping.json")))
+LOG_DIR = DEFAULT_LOG_DIR
+MAP_FILE = DEFAULT_MAP_FILE
 
 STATE_LOCK = threading.Lock()
 MAPPING: Dict[str, dict] = {}            # serial/udid -> ports/type
@@ -534,6 +536,7 @@ def start_api(host: str, port: int, base_path: str, public_host: str) -> Threadi
 # ------------------------- main -------------------------
 
 def main():
+    global LOG_DIR, MAP_FILE
     ap = argparse.ArgumentParser(description="Monitor Android & iOS devices and run one Appium per device (with API & MJPEG).")
     # Common / Appium
     ap.add_argument("--base-port", type=int, default=4723, help="Starting Appium port (default: 4723)")
@@ -585,8 +588,28 @@ def main():
     ap.add_argument("--api-port", type=int, default=8099)
     ap.add_argument("--public-host", type=str, default="")
 
+    # Container / multi-replica helpers
+    ap.add_argument("--log-dir", type=str, default=str(LOG_DIR),
+                    help="Directory for logs (default: MONITOR_LOG_DIR or ./logs)")
+    ap.add_argument("--mapping-file", type=str, default=str(MAP_FILE),
+                    help="Path to mapping file (default: MONITOR_MAPPING_FILE or ./mapping.json)")
+    ap.add_argument("--port-offset", type=int, default=int(os.environ.get("PORT_OFFSET", "0")),
+                    help="Additive offset applied to all base ports (env: PORT_OFFSET)")
+
     args = ap.parse_args()
     relaxed_security = not args.no_relaxed_security
+
+    LOG_DIR = Path(args.log_dir).expanduser()
+    MAP_FILE = Path(args.mapping_file).expanduser()
+
+    if args.port_offset:
+        args.base_port += args.port_offset
+        args.api_port += args.port_offset
+        args.android_system_port_base += args.port_offset
+        args.android_chromedriver_port_base += args.port_offset
+        args.android_mjpg_base_port += args.port_offset
+        args.ios_wda_base_port += args.port_offset
+        args.ios_mjpg_base_port += args.port_offset
 
     # caps defaults
     try:
